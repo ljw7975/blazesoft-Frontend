@@ -5,8 +5,7 @@ import Badge from 'react-bootstrap/Badge';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import { useSelector, useDispatch } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { openPopup, closePopup, deleteBook, openDescription, closeDescription, setCurrentBook, resetCurrentBook } from '../../Action'
-// import * as ActionList from '../../Action'
+import { actionCreators } from '../../Action';
 import { Trash3 } from 'react-bootstrap-icons'
 
 export interface BookCardProps {
@@ -19,16 +18,16 @@ export interface BookCardProps {
 
 const BookCard = (props: BookCardProps) => {
   const dispatch = useDispatch()
-  const Actions: any = bindActionCreators({ openPopup, closePopup, deleteBook, openDescription, closeDescription, setCurrentBook, resetCurrentBook }, dispatch)
+  const { openDescription, openPopup, deleteBook, closeDescription, setCurrentBook, resetCurrentBook } = bindActionCreators(actionCreators, dispatch)
   const state: any = useSelector((state) => state);
 
   const open = () => {
-    Actions.setCurrentBook(props)
-    Actions.openPopup();
+    setCurrentBook(props)
+    openPopup();
   }
 
   const deleteCurrentBook = () => {
-    Actions.deleteBook({
+    deleteBook({
       name: props.name,
       price: props.price,
       cateogry: props.category,
@@ -38,18 +37,18 @@ const BookCard = (props: BookCardProps) => {
   }
 
   const handleShowDescription = () => {
-    Actions.setCurrentBook(props)
-    Actions.openDescription();
+    setCurrentBook(props)
+    openDescription();
   }
 
   const handleHideDescription = () => {
-    Actions.resetCurrentBook();
-    Actions.closeDescription();
+    resetCurrentBook();
+    closeDescription();
   }
 
   return (
-    <div style={{ boxShadow: "12px 12px 2px 1px rgba(0, 0, 255, .2)", margin: '10px' }}>
-      <Card className="BookCard" border="light" style={{ width: '17rem' }} >
+    <div className="BookCard">
+      <Card border="light" style={{ width: '17rem' }} >
         <Card.Header>{props.name}</Card.Header>
         <Card.Img variant="top" src={logo} onClick={open} />
         <Card.Body onClick={open}>
@@ -59,7 +58,7 @@ const BookCard = (props: BookCardProps) => {
           <Card.Text>
             <Badge bg="dark">{props.category}</Badge>
           </Card.Text>
-          <Card.Text style={{ maxHeight: "10vh", minHeight: "10vh", overflowY: "scroll" }}>
+          <Card.Text className="BookCardDescription">
             {props.description}
           </Card.Text>
         </Card.Body>
@@ -70,7 +69,7 @@ const BookCard = (props: BookCardProps) => {
           </Button>
           <Offcanvas show={state.description} onHide={handleHideDescription}>
             <Offcanvas.Header closeButton>
-              <Offcanvas.Title>{state.currentBook.currentBook.name} Description</Offcanvas.Title>
+              <Offcanvas.Title>{state.currentBook.currentBook.name}</Offcanvas.Title>
             </Offcanvas.Header>
             <Offcanvas.Body>
               {state.currentBook.currentBook.description}

@@ -9,8 +9,11 @@ Developed by Jaewon Lee
 Tech stacks used for this application:
 - React.js
 - Bootstrap
-- Typescript
+- TypeScript
+- JavaScript
 - Redux Hooks
+- CSS
+- HTML
 
 ### `npm start`
 

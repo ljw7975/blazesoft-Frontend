@@ -1,7 +1,7 @@
 import { Button, Form, InputGroup, Modal } from 'react-bootstrap'
 import { useSelector, useDispatch } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { openPopup, closePopup, addNewBook, modifyBook, resetCurrentBook } from '../../Action'
+import { actionCreators } from '../../Action'
 import { useState, useEffect } from 'react'
 import { BookCardProps } from '../Booklist/BookCard'
 
@@ -16,7 +16,7 @@ interface StateType {
 
 const AddOrModifyBook = ({ isOpen }: AddOrModifyBookProps) => {
   const dispatch = useDispatch()
-  const Actions = bindActionCreators({ openPopup, closePopup, addNewBook, modifyBook, resetCurrentBook }, dispatch)
+  const { closePopup, addNewBook, modifyBook, resetCurrentBook } = bindActionCreators(actionCreators, dispatch)
   const state: StateType = useSelector((state: StateType) => state);
   const [formValues, setFormValues] = useState({ name: "", price: "", description: "", category: "", url: "" });
   const isModify: boolean = state.book.bookList.find((book: any) => book.name === formValues.name);
@@ -34,14 +34,14 @@ const AddOrModifyBook = ({ isOpen }: AddOrModifyBookProps) => {
 
   const handleClose = () => {
     setFormValues({ name: "", price: "", description: "", category: "", url: "" });
-    Actions.resetCurrentBook();
-    Actions.closePopup();
+    resetCurrentBook();
+    closePopup();
   }
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
     if (isModify) {
-      Actions.modifyBook({
+      modifyBook({
         name: formValues.name,
         price: formValues.price,
         category: formValues.category,
@@ -49,7 +49,7 @@ const AddOrModifyBook = ({ isOpen }: AddOrModifyBookProps) => {
         url: formValues.url
       })
     } else {
-      Actions.addNewBook({
+      addNewBook({
         name: formValues.name,
         price: formValues.price,
         category: formValues.category,
@@ -58,12 +58,12 @@ const AddOrModifyBook = ({ isOpen }: AddOrModifyBookProps) => {
       });
     }
     setFormValues({ name: "", price: "", description: "", category: "", url: "" });
-    Actions.closePopup();
+    closePopup();
   }
 
   const handleClear = () => {
     setFormValues({ name: "", price: "", description: "", category: "", url: "" });
-    Actions.resetCurrentBook();
+    resetCurrentBook();
   }
 
   return (

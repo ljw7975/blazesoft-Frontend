@@ -25,7 +25,7 @@ const bookReducer = (state = Initial_books, action) => {
                 price: action.payload.price,
                 description: action.payload.description,
                 category: action.payload.category,
-                url: action.payload.url
+                url: action.payload.url,
               }
             : book
         ),

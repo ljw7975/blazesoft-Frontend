@@ -4,7 +4,6 @@
 
 .AppContent {
   text-align: center;
-  /* background-color: #282c34; */
   background-color: #f38428;
   min-height: 100vh;
   display: flex;
@@ -24,8 +23,28 @@
   color: #61dafb;
 }
 
-.card:hover{
-  box-shadow: 8px 8px 8px blue;
-  transform:scale(1.1);
+.card:hover {
+  box-shadow: 8px 8px 8px rgba(0, 0, 255, 0.2);
+  transform: scale(1.1);
   cursor: pointer;
+}
+
+.Booklist {
+  height: 500px;
+  width: 100%;
+  padding: 20px;
+}
+
+.Books {
+  overflow-x: scroll;
+}
+
+.BookCard {
+  box-shadow: 12px 12px 2px 1px rgba(0, 0, 255, 0.2);
+  margin: 10px;
+}
+
+.BookCardDescription {
+  height: 10vh;
+  overflow-y: scroll;
 }

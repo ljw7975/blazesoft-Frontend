@@ -9,7 +9,13 @@ const currentBookReducer = (state = Initial_book, action) => {
     case "resetCurrentBook":
       return {
         ...state,
-        currentBook: { name: "", price: "", category: "", description: "", url: "" },
+        currentBook: {
+          name: "",
+          price: "",
+          category: "",
+          description: "",
+          url: "",
+        },
       };
     case "getCurrentBook":
       return state;
